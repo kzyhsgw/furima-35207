@@ -28,9 +28,9 @@
 | condition_id  | integer    | null: false                    |
 | postage_id    | integer    | null: false                    |
 | prefecture_id | integer    | null: false                    |
-| days_id       | integer    | null: false                    |
+| day_id        | integer    | null: false                    |
 | price         | integer    | null: false                    |
-| user_id       | references | null: false, foreign_key: true |
+| user          | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -39,10 +39,10 @@
 
 ## orders 購入テーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| user_id | references | null: false, foreign_key: true |
-| item_id | references | null: false, foreign_key: true |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -52,14 +52,15 @@
 
 ## addresses 配送先テーブル
 
-| Column        | Type    | Options     |
-| ------------- | ------- | ----------- |
-| postal_code   | string  | null: false |
-| prefecture_id | integer | null: false |
-| city          | string  | null: false |
-| address_1     | string  | null: false |
-| address_2     | string  |             |
-| phone         | string  | null: false |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal_code   | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| block         | string     | null: false                    |
+| building      | string     |                                |
+| phone         | string     | null: false                    |
+| order         | references | null: false, foreign_key: true |
 
 ### Association
 
