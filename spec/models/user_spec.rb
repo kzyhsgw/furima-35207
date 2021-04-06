@@ -50,8 +50,8 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password can't be blank")
       end
 
-      it 'passwordが半角以外では登録できないこと' do
-        @user.password = '123abcあいう'
+      it 'passwordが全角では登録できないこと' do
+        @user.password = '１２３あいう'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid')
       end
@@ -90,7 +90,7 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Last name can't be blank")
       end
 
-      it 'last_nameが全角以外では登録できないこと' do
+      it 'last_nameが半角では登録できないこと' do
         @user.last_name = 'yamada'
         @user.valid?
         expect(@user.errors.full_messages).to include('Last name is invalid')
@@ -102,7 +102,7 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("First name can't be blank")
       end
 
-      it 'first_nameが全角以外では登録できないこと' do
+      it 'first_nameが半角では登録できないこと' do
         @user.first_name = 'taro'
         @user.valid?
         expect(@user.errors.full_messages).to include('First name is invalid')
@@ -114,8 +114,20 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Phonetic last can't be blank")
       end
 
-      it 'phonetic_lastが全角カタカナ以外では登録できないこと' do
+      it 'phonetic_lastが半角では登録できないこと' do
+        @user.phonetic_last = 'yamada'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Phonetic last is invalid')
+      end
+
+      it 'phonetic_lastが全角漢字では登録できないこと' do
         @user.phonetic_last = '山田'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Phonetic last is invalid')
+      end
+
+      it 'phonetic_lastが全角ひらがなでは登録できないこと' do
+        @user.phonetic_last = 'やまだ'
         @user.valid?
         expect(@user.errors.full_messages).to include('Phonetic last is invalid')
       end
@@ -126,8 +138,20 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Phonetic first can't be blank")
       end
 
-      it 'phonetic_firstが全角カタカナ以外では登録できないこと' do
+      it 'phonetic_firstが半角では登録できないこと' do
+        @user.phonetic_first = 'taro'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Phonetic first is invalid')
+      end
+
+      it 'phonetic_firstが全角漢字では登録できないこと' do
         @user.phonetic_first = '太郎'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Phonetic first is invalid')
+      end
+
+      it 'phonetic_firstが全角ひらがなでは登録できないこと' do
+        @user.phonetic_first = 'たろう'
         @user.valid?
         expect(@user.errors.full_messages).to include('Phonetic first is invalid')
       end
