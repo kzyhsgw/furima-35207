@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context '内容に問題ない場合' do
+    context '内容に問題がある場合' do
       it 'nicknameが空では登録できないこと' do
         @user.nickname = ''
         @user.valid?
