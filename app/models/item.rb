@@ -8,17 +8,27 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :day
 
+  validates :image, presence: { message: "を選択してください" }
   with_options presence: true do
-    validates :image
     validates :name
     validates :text
-    with_options numericality: { other_than: 1 } do
+    with_options numericality: { other_than: 1 , message: "を選択してください"} do
       validates :category_id
       validates :condition_id
       validates :postage_id
       validates :prefecture_id
       validates :day_id
     end
-    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }, format: { with: /\A[0-9]+\z/ }
+  end
+  validates :price, presence: true
+  validates :price, numericality: { only_integer: true, message: "は半角数字で入力してください" }, if: :is_not_half_width_number?
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "は¥300〜9,999,999で入力してください" }, if: :is_half_width_number?
+
+  def is_not_half_width_number?
+    !(price_before_type_cast.match?(/\A[0-9]+\z/)) && price.present?
+  end
+
+  def is_half_width_number?
+    price_before_type_cast.match?(/\A[0-9]+\z/) && price.present?
   end
 end

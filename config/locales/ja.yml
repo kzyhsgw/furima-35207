@@ -1,0 +1,20 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        nickname: ニックネーム
+        birthday: 生年月日
+        last_name: お名前(全角)
+        first_name: お名前(全角)
+        phonetic_last: お名前カナ(全角)
+        phonetic_first: お名前カナ(全角)
+      item:
+        image: 出品画像
+        name: 商品名
+        text: 商品の説明
+        category_id: カテゴリー
+        condition_id: 商品の状態
+        postage_id: 配送料の負担
+        prefecture_id: 発送元の地域
+        day_id: 発送までの日数
+        price: 販売価格
