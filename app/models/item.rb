@@ -29,6 +29,6 @@ class Item < ApplicationRecord
   end
 
   def is_half_width_number?
-    price_before_type_cast.match?(/\A[0-9]+\z/) && price.present?
+    price_before_type_cast.match?(/\A[0-9]+\z/)
   end
 end
