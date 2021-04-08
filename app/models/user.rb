@@ -18,4 +18,6 @@ class User < ApplicationRecord
       validates :phonetic_first
     end
   end
+
+  has_many :items
 end
