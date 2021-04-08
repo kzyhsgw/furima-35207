@@ -25,14 +25,17 @@ class Item < ApplicationRecord
     only_integer: true, message: 'は半角数字で入力してください'
   }, if: :not_half_width_number?
   validates :price, numericality: {
-    greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'は¥300〜9,999,999で入力してください'
+    greater_than_or_equal_to: 300, message: 'は¥300以上で入力してください'
+  }, if: :half_width_number?
+  validates :price, numericality: {
+    less_than_or_equal_to: 9_999_999, message: 'は¥9,999,999以下で入力してください'
   }, if: :half_width_number?
 
   def not_half_width_number?
-    !price_before_type_cast.match?(/\A[0-9]+\z/) && price.present?
+    !price_before_type_cast.to_s.match?(/\A[0-9]+\z/) && price.present?
   end
 
   def half_width_number?
-    price_before_type_cast.match?(/\A[0-9]+\z/)
+    price_before_type_cast.to_s.match?(/\A[0-9]+\z/)
   end
 end
