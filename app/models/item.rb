@@ -12,6 +12,7 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :text
+    validates :price
     with_options numericality: { other_than: 1, message: 'を選択してください' } do
       validates :category_id
       validates :condition_id
@@ -20,7 +21,6 @@ class Item < ApplicationRecord
       validates :day_id
     end
   end
-  validates :price, presence: true
   validates :price, numericality: {
     only_integer: true, message: 'は半角数字で入力してください'
   }, if: :not_half_width_number?
