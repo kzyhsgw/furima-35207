@@ -37,31 +37,31 @@ RSpec.describe Item, type: :model do
       end
 
       it 'カテゴリーを選択しなければ登録できないこと' do
-        @item.category_id = '1'
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Category を選択してください')
       end
 
       it '商品の状態を選択しなければ登録できないこと' do
-        @item.condition_id = '1'
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Condition を選択してください')
       end
 
       it '配送料の負担を選択しなければ登録できないこと' do
-        @item.postage_id = '1'
+        @item.postage_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Postage を選択してください')
       end
 
       it '配送元の地域を選択しなければ登録できないこと' do
-        @item.prefecture_id = '1'
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Prefecture を選択してください')
       end
 
       it '発送までの日数を選択しなければ登録できないこと' do
-        @item.day_id = '1'
+        @item.day_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Day を選択してください')
       end
