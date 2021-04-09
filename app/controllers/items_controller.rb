@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :exist_item?, only: [:show, :edit, :update]
-  before_action :is_seller?, only: [:edit, :update]
+  before_action :seller?, only: [:edit, :update]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -46,15 +46,11 @@ class ItemsController < ApplicationController
   end
 
   def exist_item?
-    unless Item.find_by(id: params[:id])
-      redirect_to action: :index
-    end
+    redirect_to action: :index unless Item.find_by(id: params[:id])
   end
 
-  def is_seller?
+  def seller?
     item = Item.find(params[:id])
-    unless user_signed_in? && item.user_id == current_user.id
-      redirect_to action: :index
-    end
+    redirect_to action: :index unless user_signed_in? && item.user_id == current_user.id
   end
 end
