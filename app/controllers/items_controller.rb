@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
   def update
     set_item
     @item.update(item_params)
-    if @item.save
+    if @item.update(item_params)
       redirect_to item_path
     else
       render :edit
@@ -56,6 +56,6 @@ class ItemsController < ApplicationController
 
   def seller?
     item = Item.find(params[:id])
-    redirect_to action: :index unless user_signed_in? && item.user_id == current_user.id
+    redirect_to action: :index unless item.user_id == current_user.id
   end
 end
