@@ -19,7 +19,7 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address).to be_valid
       end
 
-      it '電話番号は半角数字かつ11桁であれば登録できること' do
+      it '電話番号は半角数字かつ11桁以内であれば登録できること' do
         @order_address.phone = '09012345678'
         expect(@order_address).to be_valid
       end
@@ -56,22 +56,10 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("City can't be blank")
       end
 
-      it '市区町村が全角でなければ登録できないこと' do
-        @order_address.city = 'abc123'
-        @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('City は全角で入力してください')
-      end
-
       it '番地が空では登録できないこと' do
         @order_address.block = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Block can't be blank")
-      end
-
-      it '番地が全角でなければ登録できないこと' do
-        @order_address.block = 'abc123'
-        @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Block は全角で入力してください')
       end
 
       it '電話番号が空では登録できないこと' do
@@ -86,19 +74,13 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include('Phone は半角数字で入力してください')
       end
 
-      it '電話番号は10桁以下では登録できないこと' do
-        @order_address.phone = '0901234567'
-        @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Phone は11桁で入力してください')
-      end
-
       it '電話番号は12桁以上では登録できないこと' do
         @order_address.phone = '090123456789'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Phone は11桁で入力してください')
+        expect(@order_address.errors.full_messages).to include('Phone は11桁以内で入力してください')
       end
 
-      it 'tokenが空では登録できないこと' do
+      it 'クレジットカード情報が空では登録できないこと' do
         @order_address.token = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Token can't be blank")

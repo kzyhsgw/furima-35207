@@ -58,7 +58,7 @@ class ItemsController < ApplicationController
   end
 
   def sold_out?
-    redirect_to action: :index unless Order.find_by(item_id: params[:id])
+    redirect_to action: :index if Order.find_by(item_id: params[:id])
   end
 
   def seller?

@@ -23,7 +23,7 @@ class OrderAddress
     only_integer: true, message: 'は半角数字で入力してください'
   }, if: :not_half_width_number?
   validates :phone, format: {
-    with: /\A0[0-9]{10}\z/, message: 'は11桁で入力してください'
+    with: /\A\d{1,11}\z/, message: 'は11桁以内で入力してください'
   }, if: :half_width_number?
 
   def save
