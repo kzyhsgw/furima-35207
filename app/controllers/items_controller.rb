@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :exist_item?, only: [:show, :edit, :update]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :sold_out?, only: [:edit]
   before_action :seller?, only: [:edit, :update, :destroy]
 
   def index
@@ -54,6 +55,10 @@ class ItemsController < ApplicationController
 
   def exist_item?
     redirect_to action: :index unless Item.find_by(id: params[:id])
+  end
+
+  def sold_out?
+    redirect_to action: :index unless Order.find_by(item_id: params[:id])
   end
 
   def seller?
