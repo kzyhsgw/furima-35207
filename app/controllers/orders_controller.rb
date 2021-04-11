@@ -27,4 +27,8 @@ class OrdersController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
+
+  def order_params
+    params.require(:order).permit(:price).merge(token: params[:token])
+  end
 end

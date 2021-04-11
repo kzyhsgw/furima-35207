@@ -1,6 +1,6 @@
 class OrderAddress
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :order_id, :postal_code, :prefecture_id, :city, :block, :building, :phone
+  attr_accessor :user_id, :item_id, :order_id, :postal_code, :prefecture_id, :city, :block, :building, :phone, :token
 
   with_options presence: true do
     validates :postal_code
@@ -9,6 +9,7 @@ class OrderAddress
     validates :phone
     validates :user_id
     validates :item_id
+    validates :token
   end
   validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'は半角数字でハイフンを含み入力してください' }, allow_blank: true
   with_options allow_blank: true do
