@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :user
+  has_one :order
   has_one_attached :image
   belongs_to :category
   belongs_to :condition
@@ -30,6 +31,8 @@ class Item < ApplicationRecord
   validates :price, numericality: {
     less_than_or_equal_to: 9_999_999, message: 'は¥9,999,999以下で入力してください'
   }, if: :half_width_number?
+
+  private
 
   def not_half_width_number?
     !price_before_type_cast.to_s.match?(/\A[0-9]+\z/) && price.present?
