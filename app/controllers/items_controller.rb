@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :exist_item?, only: [:show, :edit, :update]
+  before_action :exists_item?, only: [:show, :edit, :update]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :sold_out?, only: [:edit]
-  before_action :seller?, only: [:edit, :update, :destroy]
+  before_action :reject_edit, only: [:edit]
+  before_action :reject_buyer, only: [:update, :destroy]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -53,15 +53,15 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def exist_item?
+  def exists_item?
     redirect_to action: :index unless Item.find_by(id: params[:id])
   end
 
-  def sold_out?
-    redirect_to action: :index if Order.find_by(item_id: params[:id])
+  def reject_edit
+    redirect_to action: :index if Order.find_by(item_id: params[:id]) || @item.user_id != current_user.id
   end
 
-  def seller?
-    redirect_to action: :index unless @item.user_id == current_user.id
+  def reject_buyer
+    redirect_to action: :index if @item.user_id != current_user.id
   end
 end
