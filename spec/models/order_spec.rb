@@ -23,6 +23,11 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.phone = '09012345678'
         expect(@order_address).to be_valid
       end
+
+      it '建物名が空でも登録できること' do
+        @order_address.building = ''
+        expect(@order_address).to be_valid
+      end
     end
 
     context '内容に問題がある場合' do
