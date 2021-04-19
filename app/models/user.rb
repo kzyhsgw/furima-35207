@@ -5,10 +5,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
-  validates_format_of :password, with: PASSWORD_REGEX
+  validates :password, format: { with: PASSWORD_REGEX }, allow_blank: true
+  validates :password, presence: true, on: :create
   with_options presence: true do
     validates :nickname
     validates :birthday
+    validates :last_name
+    validates :first_name
+    validates :phonetic_last
+    validates :phonetic_first
+  end
+  with_options allow_blank: true do
     with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ } do
       validates :last_name
       validates :first_name
