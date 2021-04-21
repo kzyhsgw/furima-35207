@@ -127,32 +127,7 @@
     <ul class='item-lists'>
 
       <% @items.each do |item| %>
-      <li class='list'>
-        <%= link_to item_path(item.id) do %>
-        <div class='item-img-content'>
-          <%= image_tag item.image.variant(resize: '300x300'), class: "item-img" %>
-
-          <% if Order.find_by(item_id: item.id) %>
-            <div class='sold-out'>
-              <span>Sold Out!!</span>
-            </div>
-          <% end %>
-
-        </div>
-        <div class='item-info'>
-          <h3 class='item-name'>
-            <%= item.name %>
-          </h3>
-          <div class='item-price'>
-            <span><%= item.price %>円<br><%= Postage.find(item.postage_id).name %></span>
-            <div class='star-btn'>
-              <%= image_tag "star.png", class:"star-icon" %>
-              <span class='star-count'>0</span>
-            </div>
-          </div>
-        </div>
-        <% end %>
-      </li>
+        <%= render partial: "item", locals: { item: item } %>
       <% end %>
 
       <% if @items.empty? %>
