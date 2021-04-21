@@ -25,6 +25,11 @@ class ItemsController < ApplicationController
   def show
   end
 
+  def search
+    @keyword = params[:keyword]
+    @items = Item.search(params[:keyword]).order('created_at DESC')
+  end
+
   def edit
   end
 
