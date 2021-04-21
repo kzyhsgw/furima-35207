@@ -41,4 +41,12 @@ class Item < ApplicationRecord
   def half_width_number?
     price_before_type_cast.to_s.match?(/\A[0-9]+\z/)
   end
+
+  def self.search(search)
+    if search != ""
+      Item.where('name or text LIKE(?)', "%#{search}%")
+    else
+      Item.all
+    end
+  end
 end
