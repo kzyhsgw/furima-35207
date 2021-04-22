@@ -1,5 +1,6 @@
 <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 <%= javascript_pack_tag 'item_price', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'preview', 'data-turbolinks-track': 'reload' %>
 
 <div class="items-sell-contents">
   <header class="items-sell-header">
@@ -22,9 +23,11 @@
         <p>
           クリックしてファイルをアップロード
         </p>
-        <%= f.file_field :image, id:"item-image" %>
+        <%= f.file_field :images, name: 'item[images][]', id:"item-image" %>
       </div>
     </div>
+    <div class="preview" id="image-list"></div>
+
     <%# /出品画像 %>
     <%# 商品名と商品説明 %>
     <div class="new-items">
