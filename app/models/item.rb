@@ -2,14 +2,14 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :user
   has_one :order
-  has_one_attached :image
+  has_many_attached :images
   belongs_to :category
   belongs_to :condition
   belongs_to :postage
   belongs_to :prefecture
   belongs_to :day
 
-  validates :image, presence: { message: 'を選択してください' }
+  validates :images, presence: { message: 'を選択してください' }
   with_options presence: true do
     validates :name
     validates :text

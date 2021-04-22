@@ -1,7 +1,9 @@
 <li class='list'>
   <%= link_to item_path(item.id) do %>
   <div class='item-img-content'>
-    <%= image_tag item.image.variant(resize: '300x300'), class: "item-img" %>
+    <% if item.images.count > 0 %>
+      <%= image_tag item.images.first.variant(resize: '300x300'), class: "images" %>
+    <% end %>
 
     <% if Order.find_by(item_id: item.id) %>
       <div class='sold-out'>
