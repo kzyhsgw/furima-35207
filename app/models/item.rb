@@ -32,6 +32,14 @@ class Item < ApplicationRecord
     less_than_or_equal_to: 9_999_999, message: 'は¥9,999,999以下で入力してください'
   }, if: :half_width_number?
 
+  def self.search(search)
+    if search != ''
+      Item.where('name or text LIKE(?)', "%#{search}%")
+    else
+      Item.all
+    end
+  end
+
   private
 
   def not_half_width_number?
@@ -40,13 +48,5 @@ class Item < ApplicationRecord
 
   def half_width_number?
     price_before_type_cast.to_s.match?(/\A[0-9]+\z/)
-  end
-
-  def self.search(search)
-    if search != ""
-      Item.where('name or text LIKE(?)', "%#{search}%")
-    else
-      Item.all
-    end
   end
 end

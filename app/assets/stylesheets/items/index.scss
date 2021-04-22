@@ -254,6 +254,18 @@ a {
   height: 300px;
 }
 
+.multiple-images {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.images {
+  width: 49%;
+  object-fit: contain;
+}
+
 .item-img {
   width: 33vh;
   height: 33vh;

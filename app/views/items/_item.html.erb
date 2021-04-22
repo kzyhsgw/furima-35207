@@ -2,7 +2,7 @@
   <%= link_to item_path(item.id) do %>
   <div class='item-img-content'>
     <% if item.images.count > 0 %>
-      <%= image_tag item.images.first.variant(resize: '300x300'), class: "images" %>
+      <%= image_tag item.images.first.variant(resize: '300x300') %>
     <% end %>
 
     <% if Order.find_by(item_id: item.id) %>
