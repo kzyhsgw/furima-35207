@@ -11,7 +11,7 @@
     </h1>
     <%# 購入内容の表示 %>
     <div class='buy-item-info'>
-      <%= image_tag @item.image, class: 'buy-item-img' %>
+      <%= image_tag @item.images.first, class: 'buy-item-img' %>
       <div class='buy-item-right-content'>
         <h2 class='buy-item-text'>
           <%= @item.name %>
@@ -40,6 +40,7 @@
     <%= render 'shared/error_messages', model: f.object %>
 
     <%# カード情報の入力 %>
+    <% unless current_user.card.present? %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
         クレジットカード情報入力
@@ -77,6 +78,7 @@
         <%= f.text_field "cvc",class:"input-default", id:"card-cvc", placeholder:"カード背面4桁もしくは3桁の番号", maxlength:"4" %>
       </div>
     </div>
+    <% end %>
     <%# /カード情報の入力 %>
 
     <%# 配送先の入力 %>

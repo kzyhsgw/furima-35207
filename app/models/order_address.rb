@@ -3,7 +3,6 @@ class OrderAddress
   attr_accessor :user_id, :item_id, :order_id, :postal_code, :prefecture_id, :city, :block, :building, :phone, :token
 
   with_options presence: true do
-    validates :token
     validates :postal_code
     validates :city
     validates :block
@@ -21,10 +20,13 @@ class OrderAddress
   validates :prefecture_id, numericality: { other_than: 1, message: 'を選択してください' }
   validates :phone, numericality: {
     only_integer: true, message: 'は半角数字で入力してください'
-  }, if: :not_half_width_number?
+  }, if: not_half_width_number?
   validates :phone, format: {
     with: /\A\d{1,11}\z/, message: 'は11桁以内で入力してください'
   }, if: :half_width_number?
+  unless current_user.card.present?
+    validates :token, presence: true
+  end
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
