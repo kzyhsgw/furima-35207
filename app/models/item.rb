@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :user
   has_one :order
+  has_many :comments
   has_many_attached :images
   belongs_to :category
   belongs_to :condition
@@ -34,7 +35,7 @@ class Item < ApplicationRecord
 
   def self.search(search)
     if search != ''
-      Item.where('name or text LIKE(?)', "%#{search}%")
+      Item.where('name LIKE(?) OR text LIKE(?)' , "%#{search}%", "%#{search}%")
     else
       Item.all
     end
